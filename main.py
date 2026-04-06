@@ -6,15 +6,17 @@
 from fastapi import FastAPI
 from database import engine
 from models import Base
-from routes import sessions
+from routes import workouts, exercises, sets
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(sessions.router)
+app.include_router(workouts.router)
+app.include_router(exercises.router)
+app.include_router(sets.router)
 
 
 @app.get("/")
 def root():
-    return {"message": "API is working"}
+    return {"message": "Workout Tracker API is running"}

@@ -2,26 +2,63 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class SessionCreate(BaseModel):
+class WorkoutCreate(BaseModel):
     date: str
-    type: str
-    duration: int
+    workout_name: str
     notes: str
 
 
-class SessionUpdate(BaseModel):
+class WorkoutUpdate(BaseModel):
     date: Optional[str] = None
-    type: Optional[str] = None
-    duration: Optional[int] = None
+    workout_name: Optional[str] = None
     notes: Optional[str] = None
 
 
-class Session(BaseModel):
+class Workout(BaseModel):
     id: int
     date: str
-    type: str
-    duration: int
+    workout_name: str
     notes: str
+
+    class Config:
+        from_attributes = True
+
+
+class ExerciseCreate(BaseModel):
+    exercise_name: str
+
+
+class ExerciseUpdate(BaseModel):
+    exercise_name: Optional[str] = None
+
+
+class Exercise(BaseModel):
+    id: int
+    workout_id: int
+    exercise_name: str
+
+    class Config:
+        from_attributes = True
+
+
+class SetEntryCreate(BaseModel):
+    set_number: int
+    reps: int
+    weight: float
+
+
+class SetEntryUpdate(BaseModel):
+    set_number: Optional[int] = None
+    reps: Optional[int] = None
+    weight: Optional[float] = None
+
+
+class SetEntry(BaseModel):
+    id: int
+    exercise_id: int
+    set_number: int
+    reps: int
+    weight: float
 
     class Config:
         from_attributes = True
